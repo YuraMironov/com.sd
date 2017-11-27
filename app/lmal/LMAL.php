@@ -21,7 +21,7 @@ class LMAL
                 array_push($out, $input[$i]);
             }
         }
-        return $out;
+        return count($out) == 0 ? null : $out;
     }
     public static function getMaxLength($input)
     {
@@ -32,6 +32,7 @@ class LMAL
                 $length++;
             } elseif ($length > $maxLength) {
                 $maxLength = $length;
+                $length = 0;
             }
         }
         return $maxLength;
