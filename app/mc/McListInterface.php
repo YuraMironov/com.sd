@@ -8,7 +8,7 @@
  */
 require_once ('AbstractProduct.php');
 
-interface ListInterface extends Countable
+interface McListInterface extends Countable
 {
     public function get(int $index):AbstractProduct;
     public function add(AbstractProduct $product): bool;
