@@ -14,7 +14,7 @@ class LMALTest extends TestCase
     {
         return array(
             array(array(1,2,3,4,5,6,4,7,1), array(6,7)),
-            array(array(1,2,3,4,5,6,7,7,9), array()),
+            array(array(1,2,3,4,5,6,7,7,9), null),
             array(array(1,2), false)
         );
     }
@@ -25,7 +25,7 @@ class LMALTest extends TestCase
     public function testLocalMax($input, $expected)
 	{
         $result = LMAL::getLocalMax($input);
-        $this->assertSame($expected, $result);
+        $this->assertSame($expected, $result, 'local max');
         unset($result);
 	}
 	public function provideMaxLength()
@@ -42,7 +42,7 @@ class LMALTest extends TestCase
 	public function testMaxLength($input, $expected)
 	{
 	    $result = LMAL::getMaxLength($input);
-        $this->assertSame($expected, $result);
+        $this->assertSame($expected, $result, 'max length');
         unset($result);
 	}
 
