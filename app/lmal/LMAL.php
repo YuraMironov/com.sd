@@ -26,13 +26,13 @@ class LMAL
     public static function getMaxLength($input)
     {
         $maxLength = 0;
-        $length = 0;
+        $length = 1;
         for ($i = 1; $i < count($input); $i++) {
             if ($input[$i] < $input[$i - 1]) {
                 $length++;
             } elseif ($length > $maxLength) {
                 $maxLength = $length;
-                $length = 0;
+                $length = 1;
             }
         }
         return $maxLength;
