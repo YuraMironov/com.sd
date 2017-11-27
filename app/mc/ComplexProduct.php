@@ -11,6 +11,14 @@ class ComplexProduct extends Product
 {
     private $quantity;
 
+    public function __construct(string $name, float $cost, int $quantity = null)
+    {
+        parent::__construct($name, $cost);
+        if (!is_null($quantity)) {
+            $this->setQuantity($quantity);
+        }
+    }
+
     /**
      * @return mixed
      */
@@ -25,4 +33,5 @@ class ComplexProduct extends Product
     {
         $this->quantity = $quantity;
     }
+
 }
