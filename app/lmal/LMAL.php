@@ -23,5 +23,18 @@ class LMAL
         }
         return $out;
     }
+    public static function getMaxLength($input)
+    {
+        $maxLength = 0;
+        $length = 0;
+        for ($i = 1; $i < count($input); $i++) {
+            if ($input[$i] < $input[$i - 1]) {
+                $length++;
+            } elseif ($length > $maxLength) {
+                $maxLength = $length;
+            }
+        }
+        return $maxLength;
+    }
 
 }
