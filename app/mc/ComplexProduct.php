@@ -34,4 +34,8 @@ class ComplexProduct extends Product
         $this->quantity = $quantity;
     }
 
+    public function getFullCost():float {
+        return $this->getCost() * $this->getQuantity();
+    }
+
 }
