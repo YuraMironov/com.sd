@@ -16,6 +16,8 @@ class ComplexProduct extends Product
         parent::__construct($name, $cost);
         if (!is_null($quantity)) {
             $this->setQuantity($quantity);
+        } else {
+            $this->setQuantity(1);
         }
     }
 
