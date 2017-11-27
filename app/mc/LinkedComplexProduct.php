@@ -13,7 +13,7 @@ class LinkedComplexProduct extends ComplexProduct
     private $nextProduct;
 
     /**
-     * @return mixed
+     * @return LinkedComplexProduct
      */
     public function getNextProduct(): ComplexProduct
     {
@@ -21,9 +21,9 @@ class LinkedComplexProduct extends ComplexProduct
     }
 
     /**
-     * @param mixed $nextProduct
+     * @param LinkedComplexProduct $nextProduct
      */
-    public function setNextProduct(ComplexProduct $nextProduct): void
+    public function setNextProduct(LinkedComplexProduct $nextProduct): void
     {
         $this->nextProduct = $nextProduct;
     }
