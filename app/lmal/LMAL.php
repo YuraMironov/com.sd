@@ -37,7 +37,6 @@ class LMAL
             $maxLength = $length > 0 && $length > $maxLength ? $length + 1 : $maxLength;
             $length = 0;
         }
-        echo "\n";
         return $maxLength;
     }
 
