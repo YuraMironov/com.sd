@@ -9,25 +9,7 @@
 require_once ("Product.php");
 class ComplexProduct extends Product
 {
-    private $product;
-
     private $quantity;
-
-    /**
-     * @return mixed
-     */
-    public function getProduct(): Product
-    {
-        return $this->product;
-    }
-
-    /**
-     * @param mixed $product
-     */
-    public function setProduct(Product $product) : void
-    {
-        $this->product = $product;
-    }
 
     /**
      * @return mixed
