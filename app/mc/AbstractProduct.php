@@ -7,12 +7,11 @@
  * Time: 20:38
  */
 
-abstract class AbstractProduct implements Countable
+abstract class AbstractProduct
 {
     public function __construct(string $name, double $cost){}
     public function getName():string{}
     public function setName(string $name):void{}
     public function getCost():double{}
     public function setCost(double $cost):void{}
-    public function count():int{}
 }
