@@ -12,9 +12,10 @@ class LinkedComplexProduct extends ComplexProduct
 {
     private $nextProduct;
 
-    public function __construct(string $name, float $cost, int $quantity = null)
+    public function __construct(ComplexProduct $product)
     {
-        parent::__construct($name, $cost, $quantity);
+        $product2 = new Product($product->getName(), $product->getCost());
+        parent::__construct($product2, $product->getQuantity());
         $this->nextProduct = null;
     }
 
