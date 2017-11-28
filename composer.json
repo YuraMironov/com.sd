@@ -1,0 +1,16 @@
+{
+  "name": "yura/com.sd",
+  "authors": [
+    {
+      "name": "Yuriy Mironov",
+      "email": "jura96_@mail.ru"
+    }
+  ],
+  "require": {
+  },
+  "autoload":{
+    "psr-4":{
+      "mc\\" : "app/mc"
+    }
+  }
+}
