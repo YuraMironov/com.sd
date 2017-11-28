@@ -6,6 +6,8 @@
  * Date: 27.11.2017
  * Time: 21:46
  */
+
+
 require_once("Product.php");
 
 class ComplexProduct extends Product
@@ -34,7 +36,7 @@ class ComplexProduct extends Product
         $this->quantity = $quantity;
     }
 
-    public function getFullCost():float
+    public function getFullCost(): float
     {
         return $this->getCost() * $this->getQuantity();
     }
