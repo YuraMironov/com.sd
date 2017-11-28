@@ -6,19 +6,16 @@
  * Date: 27.11.2017
  * Time: 21:46
  */
-require_once ("Product.php");
+require_once("Product.php");
+
 class ComplexProduct extends Product
 {
     private $quantity;
 
-    public function __construct(string $name, float $cost, int $quantity = null)
+    public function __construct(Product $product, int $quantity = 1)
     {
-        parent::__construct($name, $cost);
-        if (!is_null($quantity)) {
-            $this->setQuantity($quantity);
-        } else {
-            $this->setQuantity(1);
-        }
+        parent::__construct($product->getName(), $product->getCost());
+        $this->setQuantity($quantity);
     }
 
     /**
@@ -28,6 +25,7 @@ class ComplexProduct extends Product
     {
         return $this->quantity;
     }
+
     /**
      * @param mixed $quantity
      */
@@ -36,7 +34,8 @@ class ComplexProduct extends Product
         $this->quantity = $quantity;
     }
 
-    public function getFullCost():float {
+    public function getFullCost():float
+    {
         return $this->getCost() * $this->getQuantity();
     }
 

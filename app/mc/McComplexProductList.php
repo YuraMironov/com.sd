@@ -16,7 +16,12 @@ class McComplexProductList implements McListInterface
     /**
      * @return LinkedComplexProduct
      */
-    public function getHead(): LinkedComplexProduct
+    public function __construct()
+    {
+        $this->head = null;
+    }
+
+    public function getHead(): ?LinkedComplexProduct
     {
         return $this->head;
     }
@@ -29,7 +34,7 @@ class McComplexProductList implements McListInterface
         $this->head = $head;
     }
 
-    public function get(int $index):AbstractProduct
+    public function get(int $index):?AbstractProduct
     {
         if ($index < 0 || $index >= $this->count()) {
             // TODO: specify exception
@@ -46,24 +51,26 @@ class McComplexProductList implements McListInterface
 
     public function add(AbstractProduct $product, int $quantity = 1): bool
     {
-        if (is_null($this->getHead())) {
+        if ($this->getHead() == null) {
             $newHead = new LinkedComplexProduct($product->getName(), $product->getCost(), $quantity);
             $this->setHead($newHead);
             return true;
-        }
+        } else {
 
-        $current = $this->getHead();
-        while (!is_null($current->getNextProduct()) || $current->getName() != $product->getName()) {
-            $current = $current->getNextProduct();
-        }
-        if ($current->getName() == $product->getName()) {
-            $current->setQuantity($current->getQuantity() + $quantity);
+            $current = $this->getHead();
+            while (!is_null($current->getNextProduct()) || $current->getName() != $product->getName()) {
+                $current = $current->getNextProduct();
+            }
+            if ($current->getName() == $product->getName()) {
+                $current->setQuantity($current->getQuantity() + $quantity);
+                return true;
+            } else {
+                $newProduct = new LinkedComplexProduct($product->getName(), $product->getCost(), $quantity);
+                $current->setNextProduct($newProduct);
+            }
+
             return true;
         }
-        $newProduct = new LinkedComplexProduct($product->getName(), $product->getCost(), $quantity);
-        $current->setNextProduct($newProduct);
-
-        return true;
     }
 
     public function insert(int $index, AbstractProduct $product): bool

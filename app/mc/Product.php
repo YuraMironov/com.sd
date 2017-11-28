@@ -11,28 +11,29 @@ class Product extends AbstractProduct
     private $name;
     private $cost;
 
-    public function __construct(string $name, double $cost)
+    public function __construct(string $name, float $cost = 0)
     {
         $this->setName($name);
+        $this->setCost($cost);
     }
 
-    public function getName():string
+    public function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(string $name):void
+    public function setName(string $name): void
     {
         $this->name = $name;
         return;
     }
 
-    public function getCost():double
+    public function getCost(): float
     {
         return $this->getCost();
     }
 
-    public function setCost(double $cost):void
+    public function setCost(float $cost): void
     {
        $this->cost = $cost;
         return;

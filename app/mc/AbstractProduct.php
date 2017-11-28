@@ -9,9 +9,9 @@
 
 abstract class AbstractProduct
 {
-    public function __construct(string $name, double $cost){}
+    public function __construct(string $name, float $cost){}
     public function getName():string{}
     public function setName(string $name):void{}
-    public function getCost():double{}
-    public function setCost(double $cost):void{}
+    public function getCost():float{}
+    public function setCost(float $cost):void{}
 }

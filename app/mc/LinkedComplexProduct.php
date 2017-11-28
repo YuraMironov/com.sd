@@ -12,10 +12,16 @@ class LinkedComplexProduct extends ComplexProduct
 {
     private $nextProduct;
 
+    public function __construct(string $name, float $cost, int $quantity = null)
+    {
+        parent::__construct($name, $cost, $quantity);
+        $this->nextProduct = null;
+    }
+
     /**
      * @return LinkedComplexProduct
      */
-    public function getNextProduct(): ComplexProduct
+    public function getNextProduct(): ?LinkedComplexProduct
     {
         return $this->nextProduct;
     }
@@ -27,4 +33,5 @@ class LinkedComplexProduct extends ComplexProduct
     {
         $this->nextProduct = $nextProduct;
     }
+
 }
