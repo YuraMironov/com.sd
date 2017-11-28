@@ -19,7 +19,7 @@ class McOrder extends Order
     public function __construct(McListInterface $list)
     {
         $this->setProductsList($list);
-        $this->setOrderCost(0);
+        $this->setOrderCost(0.0);
     }
 
     /**
@@ -39,11 +39,10 @@ class McOrder extends Order
     }
     public function sumOrderCost(): void
     {
-        $current = $this->getProductsList()->getHead();
-        while (!is_null($current)){
-            $newCost = $this->getOrderCost() + $current->getQuantity() * $current->getCost();
+        for ($i = 0; $i < $this->getProductsList()->count(); $i++) {
+            $current = $this->getProductsList()->get($i);
+            $newCost = $this->getOrderCost() + $current->getFullCost();
             $this->setOrderCost($newCost);
-            $current = $current->getNextProduct();
         }
     }
 
@@ -73,8 +72,8 @@ class McOrder extends Order
 
     public function getIterator() : Iterator
     {
-        foreach ($this->productsList as $value) {
-            yield $value;
+        for ($i = 0; $i < $this->getProductsList()->count(); $i++) {
+            yield $this->getProduct($i);
         }
     }
 }
