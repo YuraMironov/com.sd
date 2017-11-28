@@ -12,9 +12,12 @@ $lcp = new LinkedComplexProduct("burger", 100.0);
 //$mccpl->add($lcp);
 $lcp = new LinkedComplexProduct("hotPotaito", 100.0);
 try {
-    $mccpl->add($lcp);
+//    $mccpl->add($lcp);
 } catch (Exception $e) {
     $e->getMessage();
 }
+require_once('products/Cola.php');
+$cola = new Cola();
+var_dump($cola);
 echo "<pre>";
 var_dump($mccpl);

@@ -6,6 +6,8 @@
  * Date: 27.11.2017
  * Time: 21:13
  */
+require_once ('AbstractProduct.php');
+
 class Product extends AbstractProduct
 {
     private $name;
