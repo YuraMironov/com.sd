@@ -32,7 +32,7 @@ class Product extends AbstractProduct
 
     public function getCost(): float
     {
-        return $this->getCost();
+        return $this->cost;
     }
 
     public function setCost(float $cost): void

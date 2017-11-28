@@ -43,7 +43,7 @@ class ProductTest extends TestCase
         );
     }
     /**
-     * @dataProvider provideNames
+     * @dataProvider provideCosts
      */
     public function testCost(Product $input, $expected)
     {

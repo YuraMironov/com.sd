@@ -7,15 +7,10 @@
  */
 require_once ('McComplexProductList.php');
 $mccpl = new McComplexProductList();
-$lcp = new LinkedComplexProduct("burger", 100.0);
-//$mccpl->setHead($lcp);
-//$mccpl->add($lcp);
-$lcp = new LinkedComplexProduct("hotPotaito", 100.0);
-try {
-//    $mccpl->add($lcp);
-} catch (Exception $e) {
-    $e->getMessage();
-}
+$lcp = new LinkedComplexProduct(new ComplexProduct(new Product("burger", 100.0)));
+$mccpl->add($lcp);
+$lcp = new LinkedComplexProduct(new ComplexProduct(new Product("burger2", 101.0)));
+$mccpl->add($lcp);
 require_once('products/Cola.php');
 $cola = new Cola();
 var_dump($cola);

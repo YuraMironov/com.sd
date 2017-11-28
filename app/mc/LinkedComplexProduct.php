@@ -34,5 +34,9 @@ class LinkedComplexProduct extends ComplexProduct
     {
         $this->nextProduct = $nextProduct;
     }
+    public function hasNext(): bool
+    {
+        return $this->getNextProduct() != null;
+    }
 
 }

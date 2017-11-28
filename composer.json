@@ -7,10 +7,11 @@
     }
   ],
   "require": {
+    "phpunit/phpunit": "6.4.4"
   },
   "autoload":{
     "psr-4":{
-      "mc\\" : "app/mc"
+      "MC\\" : "app/mc"
     }
   }
 }

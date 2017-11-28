@@ -8,7 +8,7 @@
  */
 require_once('McListInterface.php');
 require_once('LinkedComplexProduct.php');
-require_once ('ComplexProduct.php');
+require_once('ComplexProduct.php');
 
 class McComplexProductList implements McListInterface
 {
@@ -53,25 +53,26 @@ class McComplexProductList implements McListInterface
     public function add(ComplexProduct $product, int $quantity = 1): bool
     {
         if ($this->getHead() == null) {
-            $newHead = new LinkedComplexProduct($product->getName(), $product->getCost(), $quantity);
+            $newHead = new LinkedComplexProduct($product, $quantity);
             $this->setHead($newHead);
             return true;
-        } else {
-
-            $current = $this->getHead();
-            while (!is_null($current->getNextProduct()) || $current->getName() != $product->getName()) {
-                $current = $current->getNextProduct();
-            }
-            if ($current->getName() == $product->getName()) {
-                $current->setQuantity($current->getQuantity() + $quantity);
-                return true;
-            } else {
-                $newProduct = new LinkedComplexProduct($product->getName(), $product->getCost(), $quantity);
-                $current->setNextProduct($newProduct);
-            }
-
-            return true;
         }
+
+        $current = $this->getHead();
+        $next = $current->hasNext();
+        var_dump($next);
+        while ($current->hasNext() || $current->getName() == $product->getName()) {
+            $current = $current->getNextProduct();
+        }
+        if ($current->getName() == $product->getName()) {
+            $current->setQuantity($current->getQuantity() + $quantity);
+            return true;
+        } else {
+            $newProduct = new LinkedComplexProduct($product, $quantity);
+            $current->setNextProduct($newProduct);
+        }
+
+        return true;
     }
 
     public function insert(int $index, ComplexProduct $product): bool
@@ -82,7 +83,6 @@ class McComplexProductList implements McListInterface
     public function remove(int $index): bool
     {
         if ($index < 0 || $index >= $this->count()) {
-            // TODO: specify exception
             throw new Exception('Index out of bounds');
         }
 
