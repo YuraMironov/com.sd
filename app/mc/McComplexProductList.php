@@ -8,6 +8,7 @@
  */
 require_once('McListInterface.php');
 require_once('LinkedComplexProduct.php');
+require_once ('ComplexProduct.php');
 
 class McComplexProductList implements McListInterface
 {
@@ -34,7 +35,7 @@ class McComplexProductList implements McListInterface
         $this->head = $head;
     }
 
-    public function get(int $index):?AbstractProduct
+    public function get(int $index):?ComplexProduct
     {
         if ($index < 0 || $index >= $this->count()) {
             // TODO: specify exception
@@ -49,7 +50,7 @@ class McComplexProductList implements McListInterface
         return $current;
     }
 
-    public function add(AbstractProduct $product, int $quantity = 1): bool
+    public function add(ComplexProduct $product, int $quantity = 1): bool
     {
         if ($this->getHead() == null) {
             $newHead = new LinkedComplexProduct($product->getName(), $product->getCost(), $quantity);
@@ -73,7 +74,7 @@ class McComplexProductList implements McListInterface
         }
     }
 
-    public function insert(int $index, AbstractProduct $product): bool
+    public function insert(int $index, ComplexProduct $product): bool
     {
         return false;
     }

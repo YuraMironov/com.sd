@@ -10,9 +10,9 @@ require_once ('AbstractProduct.php');
 
 interface McListInterface extends Countable
 {
-    public function get(int $index):?AbstractProduct;
-    public function add(AbstractProduct $product): bool;
-    public function insert(int $index, AbstractProduct $product): bool;
+    public function get(int $index):?ComplexProduct;
+    public function add(ComplexProduct $product): bool;
+    public function insert(int $index, ComplexProduct $product): bool;
     public function remove(int $index): bool;
 
 }
