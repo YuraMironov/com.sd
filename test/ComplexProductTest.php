@@ -29,7 +29,8 @@ class ComplexProductTest extends PHPUnit\Framework\TestCase
      */
      public function testSetQuantity(Product $product, int $quantity, $expected)
      {
-         $data = new ComplexProduct($product, $quantity);
+         $data = new ComplexProduct($product);
+         $data->setQuantity($quantity);
          $this->assertSame($expected, $data->getQuantity());
      }
     public function provideForGetFullCost()

@@ -12,11 +12,11 @@ class LinkedComplexProduct extends ComplexProduct
 {
     private $nextProduct;
 
-    public function __construct(ComplexProduct $product)
+    public function __construct(ComplexProduct $product, LinkedComplexProduct $nextProduct = null)
     {
         $product2 = new Product($product->getName(), $product->getCost());
         parent::__construct($product2, $product->getQuantity());
-        $this->nextProduct = null;
+        $this->nextProduct = $nextProduct;
     }
 
     /**
@@ -30,7 +30,7 @@ class LinkedComplexProduct extends ComplexProduct
     /**
      * @param LinkedComplexProduct $nextProduct
      */
-    public function setNextProduct(LinkedComplexProduct $nextProduct): void
+    public function setNextProduct(?LinkedComplexProduct $nextProduct): void
     {
         $this->nextProduct = $nextProduct;
     }
