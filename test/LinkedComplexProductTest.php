@@ -49,4 +49,12 @@ class LinkedComplexProductTest extends PHPUnit\Framework\TestCase
     {
         $this->assertSame($expected[2], $product->hasNext());
     }
+    public function testCompareTo(){
+        $first = new LinkedComplexProduct(new ComplexProduct(new Product("first", 1.1), 2));
+        $second = new LinkedComplexProduct(new ComplexProduct(new Product("second", 1.1), 1));
+        $this->assertEquals(-1, LinkedComplexProduct::compareTo($first, $second));
+        $this->assertEquals(1, LinkedComplexProduct::compareTo($second, $first));
+        $second->setQuantity(2);
+        $this->assertEquals(0, LinkedComplexProduct::compareTo($first, $second));
+    }
 }
