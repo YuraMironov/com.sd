@@ -39,7 +39,7 @@ class LinkedComplexProduct extends ComplexProduct
         return $this->getNextProduct() != null;
     }
 
-    public static function compareTo(LinkedComplexProduct $first, LinkedComplexProduct $second): int
+    public static function compareTo(LinkedComplexProduct $first = null, LinkedComplexProduct $second = null): int
     {
         if ($first->getQuantity() === $second->getQuantity()) {
             return 0;
