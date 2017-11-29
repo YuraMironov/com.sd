@@ -60,7 +60,10 @@ class McComplexProductList implements McListInterface
         }
 
         $current = $this->getHead();
-        while ($current->hasNext() || $current->getName() == $product->getName()) {
+        while ($current != null && $current->hasNext()) {
+            if ($current->getName() == $product->getName()) {
+                break;
+            }
             $current = $current->getNextProduct();
         }
         if ($current->getName() == $product->getName()) {
@@ -92,8 +95,8 @@ class McComplexProductList implements McListInterface
         }
 
         if (is_null($previous)) {
-            $this->setHead(null);
-            return false;
+            $this->head = $current->getNextProduct();
+            return true;
         }
 
         $previous->setNextProduct($current->getNextProduct());
