@@ -14,9 +14,6 @@ class McComplexProductList implements McListInterface
 {
     private $head;
 
-    /**
-     * @return LinkedComplexProduct
-     */
     public function __construct()
     {
         $this->head = null;
@@ -52,26 +49,27 @@ class McComplexProductList implements McListInterface
 
     public function add(ComplexProduct $product, int $quantity = 1): bool
     {
+        if ($product->getQuantity() != $quantity && $quantity > 0) {
+            $product->setQuantity($quantity);
+        }
         if ($this->getHead() == null) {
-            $newHead = new LinkedComplexProduct($product, $quantity);
+            $newHead = new LinkedComplexProduct(new ComplexProduct(new Product($product->getName(),
+                                                    $product->getCost()), $product->getQuantity()));
             $this->setHead($newHead);
             return true;
         }
 
         $current = $this->getHead();
-        $next = $current->hasNext();
-        var_dump($next);
         while ($current->hasNext() || $current->getName() == $product->getName()) {
             $current = $current->getNextProduct();
         }
         if ($current->getName() == $product->getName()) {
-            $current->setQuantity($current->getQuantity() + $quantity);
+            $current->setQuantity($current->getQuantity() + $product->getQuantity());
             return true;
-        } else {
-            $newProduct = new LinkedComplexProduct($product, $quantity);
-            $current->setNextProduct($newProduct);
         }
-
+        $newProduct = new LinkedComplexProduct(new ComplexProduct(new Product($product->getName(),
+                                                $product->getCost()), $product->getQuantity()));
+        $current->setNextProduct($newProduct);
         return true;
     }
 
@@ -111,7 +109,7 @@ class McComplexProductList implements McListInterface
      * The return value is cast to an integer.
      * @since 5.1.0
      */
-    public function count():int
+    public function count(): int
     {
         if (is_null($this->getHead())) {
             return 0;
@@ -119,7 +117,7 @@ class McComplexProductList implements McListInterface
 
         $count = 1;
         $current = $this->getHead();
-        while (!is_null($current->getNextProduct())) {
+        while ($current->hasNext()) {
             $current = $current->getNextProduct();
             $count++;
         }
