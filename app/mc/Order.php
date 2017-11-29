@@ -17,7 +17,7 @@ abstract class Order implements IteratorAggregate
     public function setOrderCost(float $orderCost): void
     {
     }
-    public function sumOrderCost(): void
+    public function sumOrderCost(): float
     {
     }
 

@@ -8,8 +8,8 @@
  */
 require_once ('AbstractProduct.php');
 require_once ("Product.php");
-require_once ('ComplexProduct.php');
 require_once ("McListInterface.php");
+require_once ('ComplexProduct.php');
 require_once ("LinkedComplexProduct.php");
 require_once ("Order.php");
 
@@ -38,13 +38,16 @@ class McOrder extends Order
     {
         $this->orderCost = $orderCost;
     }
-    public function sumOrderCost(): void
+    public function sumOrderCost(): float
     {
+        $this->orderCost = 0;
+        $newCost = 0.0;
         for ($i = 0; $i < $this->getProductsList()->count(); $i++) {
             $current = $this->getProductsList()->get($i);
-            $newCost = $this->getOrderCost() + $current->getFullCost();
+            $newCost = $this->orderCost + $current->getFullCost();
             $this->setOrderCost($newCost);
         }
+        return $newCost;
     }
 
     /**
@@ -63,6 +66,13 @@ class McOrder extends Order
         $this->productsList = $productsList;
     }
 
+    public function getSortedProductListByProductCost() : array
+    {
+        $sorted = iterator_to_array($this->getIterator(), false);
+        usort($sorted, "ComplexProduct::compareTo");
+        return $sorted;
+    }
+
     /**
      * Retrieve an external iterator
      * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
@@ -70,12 +80,6 @@ class McOrder extends Order
      * <b>Traversable</b>
      * @since 5.0.0
      */
-    public function getSortedProductListByProductCost() : array
-    {
-        $sorted = iterator_to_array($this->getIterator(), false);
-        usort($sorted, "ComplexProduct::compareTo");
-        return $sorted;
-    }
     public function getIterator() : Iterator
     {
         return (function() {
