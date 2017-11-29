@@ -15,7 +15,7 @@ trait OrderTrait
         return $this->getProductsList()->add($product);
     }
 
-    public function getProduct($index): bool
+    public function getProduct($index): ComplexProduct
     {
         return $this->getProductsList()->get($index);
     }

@@ -10,6 +10,7 @@ require_once ('AbstractProduct.php');
 require_once ("Product.php");
 require_once ('ComplexProduct.php');
 require_once ("McListInterface.php");
+require_once ("LinkedComplexProduct.php");
 require_once ("Order.php");
 
 class McOrder extends Order
@@ -69,11 +70,23 @@ class McOrder extends Order
      * <b>Traversable</b>
      * @since 5.0.0
      */
-
+    public function getSortedProductListByProductCost() : array
+    {
+        $sorted = iterator_to_array($this->getIterator(), false);
+        usort($sorted, "ComplexProduct::compareTo");
+        return $sorted;
+    }
     public function getIterator() : Iterator
     {
-        for ($i = 0; $i < $this->getProductsList()->count(); $i++) {
-            yield $this->getProduct($i);
-        }
+        return (function() {
+            $product = null;
+            for ($i = 0; $i < $this->getProductsList()->count(); $i++) {
+                $product = $this->getProduct($i);
+                if ($product instanceof LinkedComplexProduct) {
+                    $product = new ComplexProduct(new Product($product->getName(), $product->getCost()), $product->getQuantity());
+                }
+                yield $product;
+            }
+        })();
     }
 }

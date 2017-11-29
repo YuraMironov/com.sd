@@ -41,4 +41,16 @@ class ComplexProduct extends Product
         return $this->getCost() * $this->getQuantity();
     }
 
+    public static function compareTo(ComplexProduct $first = null, ComplexProduct $second = null): int
+    {
+        if ($first->getQuantity() === $second->getQuantity()) {
+            return 0;
+        }
+        if ($first->getQuantity() > $second->getQuantity()) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
 }

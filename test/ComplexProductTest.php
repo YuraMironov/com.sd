@@ -77,4 +77,12 @@ class ComplexProductTest extends PHPUnit\Framework\TestCase
         $data = new ComplexProduct($product, $quantity);
         $this->assertSame($expected, $data->getCost());
     }
+    public function testCompareTo(){
+        $first = new ComplexProduct(new Product("first", 1.1), 2);
+        $second = new ComplexProduct(new Product("second", 1.1), 1);
+        $this->assertEquals(-1, ComplexProduct::compareTo($first, $second));
+        $this->assertEquals(1, ComplexProduct::compareTo($second, $first));
+        $second->setQuantity(2);
+        $this->assertEquals(0, ComplexProduct::compareTo($first, $second));
+    }
 }

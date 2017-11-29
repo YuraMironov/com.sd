@@ -6,13 +6,24 @@
  * Time: 21:11
  */
 require_once ('McComplexProductList.php');
-$mccpl = new McComplexProductList();
-$lcp = new LinkedComplexProduct(new ComplexProduct(new Product("burger", 100.0)));
-$mccpl->add($lcp);
-$lcp = new LinkedComplexProduct(new ComplexProduct(new Product("burger2", 101.0)));
-$mccpl->add($lcp);
-require_once('products/Cola.php');
-$cola = new Cola();
-var_dump($cola);
+require_once ('LinkedComplexProduct.php');
+require_once ('ComplexProduct.php');
+require_once ('Product.php');
+require_once ('McOrder.php');
+
 echo "<pre>";
-var_dump($mccpl);
+$headForFully = new LinkedComplexProduct(new ComplexProduct(new Product("head", 3.3), 3));
+($fullyList =  new McComplexProductList())->setHead($headForFully);
+$tailForFully = new LinkedComplexProduct(new ComplexProduct(new Product("tail", 1.1), 5));
+//depends getHead
+$fullyList->getHead()->setNextProduct($tailForFully);
+$a = new ComplexProduct(new Product("new", 23.0), 7);
+
+$fullyList->add($a);
+
+$mcOrder = new McOrder($fullyList);
+var_dump($mcOrder->getSortedProductListByProductCost());
+
+
+
+

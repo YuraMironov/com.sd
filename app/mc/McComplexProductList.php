@@ -49,7 +49,7 @@ class McComplexProductList implements McListInterface
 
     public function add(ComplexProduct $product, int $quantity = 1): bool
     {
-        if ($product->getQuantity() != $quantity && $quantity > 0) {
+        if ($product->getQuantity() < 1) {
             $product->setQuantity($quantity);
         }
         if ($this->getHead() == null) {

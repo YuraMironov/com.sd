@@ -6,6 +6,7 @@
  * Date: 28.11.2017
  * Time: 0:15
  */
+require_once ("OrderTrait.php");
 abstract class Order implements IteratorAggregate
 {
     public function __construct(McListInterface $list){}
