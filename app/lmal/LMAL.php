@@ -9,21 +9,21 @@
 //LMAL (LocalMaxAndLength)
 class LMAL
 {
-    public static function getLocalMax($input)
+    public static function getLocalMax($input) : ?array
     {
         $length = count($input);
         if ($length <= 2) {
-            return false;
+            return null;
         }
         $out = array();
         for ($i = 1; $i < $length - 1; $i++) {
             if ($input[$i] > $input[$i - 1] && $input[$i] > $input[$i + 1]) {
-                array_push($out, $input[$i]);
+                $out[] =  $input[$i];
             }
         }
         return count($out) == 0 ? null : $out;
     }
-    public static function getMaxLength($input)
+    public static function getMaxLength($input) : int
     {
         $maxLength = 0;
         $length = 0;
