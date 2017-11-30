@@ -22,7 +22,6 @@ class McOrder extends Order
         $this->setProductsList($list);
         $this->setOrderCost(0.0);
     }
-
     /**
      * @return float
      */
