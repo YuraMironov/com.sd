@@ -38,6 +38,14 @@ class McOrder extends Order
         $this->orderCost = $orderCost;
     }
 
+    public function addProduct(ComplexProduct $product): bool
+    {
+        $return = parent::addProduct($product);
+        if ($this->getOrderCost() >= 1000.0) {
+            parent::addProduct(new ComplexProduct(new FreeCoffee()));
+        }
+        return $return;
+    }
     /**
      * @return float
      */
