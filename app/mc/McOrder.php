@@ -38,6 +38,10 @@ class McOrder extends Order
     {
         $this->orderCost = $orderCost;
     }
+
+    /**
+     * @return float
+     */
     public function sumOrderCost(): float
     {
         $this->orderCost = 0;
@@ -66,6 +70,9 @@ class McOrder extends Order
         $this->productsList = $productsList;
     }
 
+    /**
+     * @return array
+     */
     public function getSortedProductListByProductCost() : array
     {
         $sorted = iterator_to_array($this->getIterator(), false);
@@ -79,6 +86,7 @@ class McOrder extends Order
      * @return Traversable An instance of an object implementing <b>Iterator</b> or
      * <b>Traversable</b>
      * @since 5.0.0
+     * @return Iterator
      */
     public function getIterator() : Iterator
     {
