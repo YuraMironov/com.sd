@@ -9,7 +9,7 @@
 //LMAL (LocalMaxAndLength)
 class LMAL
 {
-    public static function getLocalMax($input) : ?array
+    public static function getLocalMax(array $input) : ?array
     {
         $length = count($input);
         if ($length <= 2) {
@@ -23,7 +23,7 @@ class LMAL
         }
         return count($out) == 0 ? null : $out;
     }
-    public static function getMaxLength($input) : int
+    public static function getMaxLength(array $input) : int
     {
         $maxLength = 0;
         $length = 0;
