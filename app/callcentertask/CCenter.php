@@ -1,5 +1,5 @@
 <?php
-require_once('Manager.php');
+require_once('CCManager.php');
 
 class CCenter 
 {
@@ -8,16 +8,17 @@ class CCenter
 	{
 		$this->managers = array();
 	}
-	public function addManager(Manager $manager)
+	public function addManager(CCManager $manager): void
 	{
-		array_push($this->managers, $manager);
+		$this->managers[] = $manager;
+        return;
 	}
-	public function managersIsGreatest3()
+	public function managersIsGreatestThan(int $score): array
 	{
 		$output = array();
 		foreach($this->managers as $value) {
-			if ($value->weakIsGreatest3()) {
-				array_push($output, $value);
+			if ($value->weakIsGreatestThan($score)) {
+				$output[] = $value;
 			}
 		}
 		return $output;

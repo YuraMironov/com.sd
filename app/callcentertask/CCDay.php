@@ -2,21 +2,31 @@
 
 class CCDay
 {
-	private $prices = null;
+	private $scores = null;
+
 	public function __construct()
 	{
-		$this->prices = array();
+		$this->scores = array();
 	}
-	public function addPrice($price)
+	public function addScore(int $score): void
 	{
-		array_push($this->prices, $price);
+		$this->scores[] = $score;
+        return;
 	}
-	public function dayIsGreatest3()
+    public function getScores():array
+    {
+        return $this->scores;
+    }
+	public function dayIsGreatestThan(int $score) : bool
 	{
-		$flag = true;
-		foreach($this->prices as $value) {
-			$flag = $flag && $value >= 3;
+	    if (count($this->scores) === 0) {
+	        return false;
+        }
+		foreach($this->scores as $value) {
+            if ($value < $score) {
+                return false;
+            }
 		}
-		return $flag;
+		return true;
 	}
 }
