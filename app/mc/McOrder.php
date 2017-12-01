@@ -17,10 +17,12 @@ class McOrder extends Order
 {
     private $productsList;
     private $orderCost;
+    private $freeCoffee;
     public function __construct(McListInterface $list)
     {
         $this->setProductsList($list);
         $this->setOrderCost(0.0);
+        $this->freeCoffee = false;
     }
     /**
      * @return float
@@ -41,8 +43,9 @@ class McOrder extends Order
     public function addProduct(ComplexProduct $product): bool
     {
         $return = parent::addProduct($product);
-        if ($this->getOrderCost() >= 1000.0) {
+        if ($this->getOrderCost() >= 1000.0 && !$this->freeCoffee) {
             parent::addProduct(new ComplexProduct(new FreeCoffee()));
+            $this->freeCoffee = true;
         }
         return $return;
     }
