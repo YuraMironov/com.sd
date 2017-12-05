@@ -14,8 +14,7 @@ class LinkedComplexProduct extends ComplexProduct
 
     public function __construct(ComplexProduct $product, LinkedComplexProduct $nextProduct = null)
     {
-        $product2 = new Product($product->getName(), $product->getCost());
-        parent::__construct($product2, $product->getQuantity());
+        parent::__construct($product, $product->getQuantity());
         $this->nextProduct = $nextProduct;
     }
 

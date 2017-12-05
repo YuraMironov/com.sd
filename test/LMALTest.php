@@ -13,7 +13,7 @@ class LMALTest extends TestCase
     public function provideLocalMax()
     {
         return array(
-            array(array(1,2,3,4,5,6,4,7,1), array(6,7)),
+            array(array(1,2,3,4,5,6,4,7,8), array(6)),
             array(array(1,2,3,4,5,6,7,7,9), null),
             array(array(1,2), null)
         );

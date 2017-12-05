@@ -6,15 +6,15 @@
  * Date: 01.12.2017
  * Time: 12:46
  */
-require_once('McComplexProductList.php');
+require_once('ComplexProductList.php');
 require_once('LinkedComplexProduct.php');
 require_once('ComplexProduct.php');
 require_once('Product.php');
-require_once('McOrder.php');
+require_once('Order.php');
 require_once('products/Burger.php');
 require_once('products/Coffee.php');
 require_once('products/Cola.php');
-require_once('products/FreeCoffee.php');
+require_once('products/Gift.php');
 require_once('products/IceCream.php');
 require_once('products/Potato.php');
 require_once('products/Sauce.php');
@@ -25,7 +25,7 @@ class McShopConsole
     private $case;
     public function __construct(array $case)
     {
-        $this->order = new McOrder(new McComplexProductList());
+        $this->order = new Order(new ComplexProductList());
         foreach ($case as $product) {
             if ($product instanceof $product) {
                 $this->case[] = $product;

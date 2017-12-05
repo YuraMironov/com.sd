@@ -6,11 +6,15 @@
  * Date: 29.11.2017
  * Time: 12:22
  */
-require_once ("../app/mc/McComplexProductList.php");
+require_once ("../app/mc/ComplexProductList.php");
 require_once ("../app/mc/LinkedComplexProduct.php");
 require_once ("../app/mc/ComplexProduct.php");
-require_once ("../app/mc/Product.php");
-class McComplexProductListTest extends PHPUnit\Framework\TestCase
+require_once ("../app/mc/products/Coffee.php");
+require_once ("../app/mc/products/Cola.php");
+require_once ("../app/mc/products/IceCream.php");
+require_once ("../app/mc/products/Burger.php");
+
+class ComplexProductListTest extends PHPUnit\Framework\TestCase
 {
     protected $emptyList;
     protected $headlyList;
@@ -21,12 +25,12 @@ class McComplexProductListTest extends PHPUnit\Framework\TestCase
 
     public function setUp()
     {
-        $this->emptyList = new McComplexProductList();
-        $this->headForHeadly = new LinkedComplexProduct(new ComplexProduct(new Product("head2", 2.2)));
-        $this->headForFully = new LinkedComplexProduct(new ComplexProduct(new Product("head3", 3.3)));
-        ($this->headlyList = new McComplexProductList())->setHead($this->headForHeadly);
-        ($this->fullyList =  new McComplexProductList())->setHead($this->headForFully);
-        $this->tailForFully = new LinkedComplexProduct(new ComplexProduct(new Product("test", 1.1)));
+        $this->emptyList = new ComplexProductList();
+        $this->headForHeadly = new LinkedComplexProduct(new ComplexProduct(new Cola()));
+        $this->headForFully = new LinkedComplexProduct(new ComplexProduct(new Coffee()));
+        ($this->headlyList = new ComplexProductList())->setHead($this->headForHeadly);
+        ($this->fullyList =  new ComplexProductList())->setHead($this->headForFully);
+        $this->tailForFully = new LinkedComplexProduct(new ComplexProduct(new IceCream()));
         //depends getHead
         $this->fullyList->getHead()->setNextProduct($this->tailForFully);
     }
@@ -42,33 +46,33 @@ class McComplexProductListTest extends PHPUnit\Framework\TestCase
 
     public function provideForGetHead()
     {
-        $mcComplexProductList = new McComplexProductList();
-        $head = new LinkedComplexProduct(new ComplexProduct(new Product("Head Product", 100.0)));
+        $mcComplexProductList = new ComplexProductList();
+        $head = new LinkedComplexProduct(new ComplexProduct(new Burger()));
         $mcComplexProductList->setHead($head);
         return array(
-            array(new McComplexProductList(), null),
+            array(new ComplexProductList(), null),
             array($mcComplexProductList, $head)
         );
     }
     /**
      * @dataProvider provideForGetHead
      */
-    public function testGetHead(McComplexProductList $mcComplexProductList, ?LinkedComplexProduct $expected)
+    public function testGetHead(ComplexProductList $mcComplexProductList, ?LinkedComplexProduct $expected)
     {
         $this->assertSame($expected, $mcComplexProductList->getHead());
     }
     public function provideForSetHead()
     {
-        $head = new LinkedComplexProduct(new ComplexProduct(new Product("Head Product", 100.0)));
+        $head = new LinkedComplexProduct(new ComplexProduct(new Burger()));
         return array(
-            array(new McComplexProductList(), null),
-            array(new McComplexProductList(), $head)
+            array(new ComplexProductList(), null),
+            array(new ComplexProductList(), $head)
         );
     }
     /**
      * @dataProvider provideForSetHead
      */
-    public function testSetHead(McComplexProductList $mcComplexProductList, ?LinkedComplexProduct $expected)
+    public function testSetHead(ComplexProductList $mcComplexProductList, ?LinkedComplexProduct $expected)
     {
         if ($expected != null){
             $mcComplexProductList->setHead($expected);
@@ -78,11 +82,11 @@ class McComplexProductListTest extends PHPUnit\Framework\TestCase
 
     public function provideForCount()
     {
-        $mcComplexProductList = new McComplexProductList();
-        $head = new LinkedComplexProduct(new ComplexProduct(new Product("Head Product", 100.0)));
+        $mcComplexProductList = new ComplexProductList();
+        $head = new LinkedComplexProduct(new ComplexProduct(new Burger()));
         $mcComplexProductList->setHead($head);
         return array(
-            array(new McComplexProductList(), null),
+            array(new ComplexProductList(), null),
             array($mcComplexProductList, $head)
         );
     }
@@ -90,7 +94,7 @@ class McComplexProductListTest extends PHPUnit\Framework\TestCase
      * @depends testSetHead
      * @dataProvider provideForCount
      */
-    public function testCount(McComplexProductList $mcComplexProductList, $expected)
+    public function testCount(ComplexProductList $mcComplexProductList, $expected)
     {
         $expected = $expected === null ? 0 : 1;
         $this->assertEquals($expected, $mcComplexProductList->count());
@@ -98,12 +102,12 @@ class McComplexProductListTest extends PHPUnit\Framework\TestCase
 
     public function provideGet()
     {
-        $fullList = new McComplexProductList();
-        $headForHeadly = new LinkedComplexProduct(new ComplexProduct(new Product("head2", 2.2)));
-        $headForFully = new LinkedComplexProduct(new ComplexProduct(new Product("head3", 3.3)));
-        ($headlyList = new McComplexProductList())->setHead($headForHeadly);
-        ($tailyList =  new McComplexProductList())->setHead($headForFully);
-        $tailForFully = new LinkedComplexProduct(new ComplexProduct(new Product("test", 1.1)));
+        $fullList = new ComplexProductList();
+        $headForHeadly = new LinkedComplexProduct(new ComplexProduct(new Cola()));
+        $headForFully = new LinkedComplexProduct(new ComplexProduct(new Coffee()));
+        ($headlyList = new ComplexProductList())->setHead($headForHeadly);
+        ($tailyList =  new ComplexProductList())->setHead($headForFully);
+        $tailForFully = new LinkedComplexProduct(new ComplexProduct(new Burger()));
         //depends getHead
         $tailyList->getHead()->setNextProduct($tailForFully);
         return array(
@@ -133,7 +137,7 @@ class McComplexProductListTest extends PHPUnit\Framework\TestCase
      * @depends testCount
      * @dataProvider provideGet
      */
-    public function testGet(McComplexProductList $mcComplexProductList, $id, $expected)
+    public function testGet(ComplexProductList $mcComplexProductList, $id, $expected)
     {
         if ($id < 0 || $id >= $mcComplexProductList->count()) {
             $this->expectException(Exception::class);
@@ -156,12 +160,12 @@ class McComplexProductListTest extends PHPUnit\Framework\TestCase
         );
     }
     /**
-     * @param McComplexProductList $mcComplexProductList
+     * @param ComplexProductList $mcComplexProductList
      * @param $id
      * @depends testCount
      * @dataProvider provideForRemove
      */
-    public function testRemove(McComplexProductList $mcComplexProductList, $id){
+    public function testRemove(ComplexProductList $mcComplexProductList, $id){
         if ($id < 0 || $id >= $mcComplexProductList->count()) {
             $this->expectException(Exception::class);
             $mcComplexProductList->remove($id);
@@ -175,21 +179,21 @@ class McComplexProductListTest extends PHPUnit\Framework\TestCase
 
     public function provideAdd() {
         $this->setUp();
-        $addedLinkedProduct = new LinkedComplexProduct(new ComplexProduct(new Product("addedLinkedProduct", 12.2)));
-        $addedProduct = new ComplexProduct(new Product("addedProduct", 13.2));
+        $addedLinkedProduct = new LinkedComplexProduct(new ComplexProduct(new Burger()));
+        $addedProduct = new ComplexProduct(new Coffee());
         return array(
             array($this->emptyList, $addedLinkedProduct, 1),
             array($this->emptyList, $addedProduct, 2),
             array($this->headlyList, $addedLinkedProduct, 2),
             array($this->headlyList, $addedProduct, 3),
             array($this->fullyList, $addedLinkedProduct, 3),
-            array($this->fullyList, $addedProduct, 4),
-            array($this->fullyList, $addedProduct, 4),
-            array($this->fullyList, $addedProduct, 4)
+            array($this->fullyList, $addedProduct, 3),
+            array($this->fullyList, $addedProduct, 3),
+            array($this->fullyList, $addedProduct, 3)
         );
     }
     /**
-     * @param McComplexProductList $mcComplexProductList
+     * @param ComplexProductList $mcComplexProductList
      * @param LinkedComplexProduct $linkedComplexProduct
      * @param $expectedCount
      * @depends testGet
@@ -197,7 +201,7 @@ class McComplexProductListTest extends PHPUnit\Framework\TestCase
      * @depends testRemove
      * @dataProvider provideAdd
      */
-    public function testAdd(McComplexProductList $mcComplexProductList, ?ComplexProduct $linkedComplexProduct, $expectedCount)
+    public function testAdd(ComplexProductList $mcComplexProductList, ?ComplexProduct $linkedComplexProduct, $expectedCount)
     {
         $this->assertTrue($mcComplexProductList->add($linkedComplexProduct));
         $this->assertEquals($expectedCount, $mcComplexProductList->count());

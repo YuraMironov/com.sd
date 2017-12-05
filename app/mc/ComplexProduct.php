@@ -33,10 +33,13 @@ class ComplexProduct extends Product
      */
     public function setQuantity(int $quantity): void
     {
+        if ($quantity <= 0) {
+            $quantity = 1;
+        }
         $this->quantity = $quantity;
     }
 
-    public function getFullCost(): float
+    public function getFullCost(): int
     {
         return $this->getCost() * $this->getQuantity();
     }

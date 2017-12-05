@@ -22,11 +22,11 @@ function getBytes($size):?float{
                 return floatval($matches[1]);
                 break;
             default:
-                return null;
+                throw new Exception('Bad input data');
                 break;
         }
     }
-    return 0.0;
+    throw new Exception('Bad input data');
 }
 $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
 $count = 0;

@@ -6,11 +6,11 @@
  * Date: 27.11.2017
  * Time: 21:57
  */
-require_once('McListInterface.php');
+require_once('ListInterface.php');
 require_once('LinkedComplexProduct.php');
 require_once('ComplexProduct.php');
 
-class McComplexProductList implements McListInterface
+class ComplexProductList implements ListInterface
 {
     private $head;
 
@@ -30,12 +30,12 @@ class McComplexProductList implements McListInterface
     public function setHead(LinkedComplexProduct $head): void
     {
         $this->head = $head;
+        return;
     }
 
     public function get(int $index):?ComplexProduct
     {
         if ($index < 0 || $index >= $this->count()) {
-            // TODO: specify exception
             throw new Exception('Index out of bounds');
         }
 
@@ -53,8 +53,7 @@ class McComplexProductList implements McListInterface
             $product->setQuantity($quantity);
         }
         if ($this->getHead() == null) {
-            $newHead = new LinkedComplexProduct(new ComplexProduct(new Product($product->getName(),
-                                                    $product->getCost()), $product->getQuantity()));
+            $newHead = new LinkedComplexProduct(new ComplexProduct($product, $product->getQuantity()));
             $this->setHead($newHead);
             return true;
         }
@@ -70,8 +69,7 @@ class McComplexProductList implements McListInterface
             $current->setQuantity($current->getQuantity() + $product->getQuantity());
             return true;
         }
-        $newProduct = new LinkedComplexProduct(new ComplexProduct(new Product($product->getName(),
-                                                $product->getCost()), $product->getQuantity()));
+        $newProduct = new LinkedComplexProduct(new ComplexProduct($product, $product->getQuantity()));
         $current->setNextProduct($newProduct);
         return true;
     }

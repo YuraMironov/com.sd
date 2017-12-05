@@ -6,9 +6,9 @@
  * Date: 27.11.2017
  * Time: 21:51
  */
-require_once ('AbstractProduct.php');
+require_once ('ComplexProduct.php');
 
-interface McListInterface extends Countable
+interface ListInterface extends Countable
 {
     public function get(int $index):?ComplexProduct;
     public function add(ComplexProduct $product): bool;

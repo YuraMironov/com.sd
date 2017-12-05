@@ -6,12 +6,15 @@
  * Date: 30.11.2017
  * Time: 0:13
  */
-require_once ("../app/mc/McOrder.php");
+require_once("../app/mc/Order.php");
 require_once ("../app/mc/LinkedComplexProduct.php");
 require_once ("../app/mc/ComplexProduct.php");
 require_once ("../app/mc/Product.php");
+require_once("../app/mc/products/Cola.php");
+require_once("../app/mc/products/Coffee.php");
+require_once("../app/mc/products/Burger.php");
 
-class McOrderTest extends PHPUnit\Framework\TestCase
+class OrderTest extends PHPUnit\Framework\TestCase
 {
     protected $order;
     protected $orderProductList;
@@ -20,16 +23,16 @@ class McOrderTest extends PHPUnit\Framework\TestCase
 
     public function setUp()
     {
-        $headCP = new ComplexProduct(new Product("head", 3.3), 3);
+        $headCP = new ComplexProduct(new Coffee(), 3);
         $head = new LinkedComplexProduct($headCP);
-        ($fullyList = new McComplexProductList())->setHead($head);
-        $tailCP = new ComplexProduct(new Product("tail", 1.1), 5);
+        ($fullyList = new ComplexProductList())->setHead($head);
+        $tailCP = new ComplexProduct(new Cola(), 5);
         $tail = new LinkedComplexProduct($tailCP);
         $fullyList->getHead()->setNextProduct($tail);
-        $newTail = new ComplexProduct(new Product("new", 23.0), 7);
+        $newTail = new ComplexProduct(new Burger(), 7);
         $fullyList->add($newTail);
         $this->orderProductList = $fullyList;
-        $this->order = new McOrder($fullyList);
+        $this->order = new Order($fullyList);
         $this->products = array($headCP, $tailCP, $newTail);
         $this->sortedProducts = array($newTail, $tailCP, $headCP);
     }
@@ -55,7 +58,7 @@ class McOrderTest extends PHPUnit\Framework\TestCase
      */
     public function testSetProductsList()
     {
-        $list = new McComplexProductList();
+        $list = new ComplexProductList();
         $this->order->setProductsList($list);
         self::assertEquals($list, $this->order->getProductsList());
     }
@@ -64,23 +67,23 @@ class McOrderTest extends PHPUnit\Framework\TestCase
      */
     public function testSumOrderCost()
     {
-        self::assertEquals(176.4, $this->order->sumOrderCost());
+        self::assertEquals(725, $this->order->sumOrderCost());
     }
     /**
      * @depends testSumOrderCost
      */
     public function testGetOrderCost()
     {
-        self::assertEquals(176.4, $this->order->getOrderCost());
+        self::assertEquals(725, $this->order->getOrderCost());
     }
     /**
      * @depends testGetOrderCost
      */
     public function testSetOrderCost()
     {
-        $this->order->setOrderCost(101.1);
+        $this->order->setOrderCost(101);
         //так как суммма заказа зависит только от его состава, то итог останется  = 176.4
-        self::assertEquals(176.4, $this->order->getOrderCost());
+        self::assertEquals(725, $this->order->getOrderCost());
     }
     public function testGetIterator()
     {

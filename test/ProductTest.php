@@ -11,18 +11,16 @@ use PHPUnit\Framework\TestCase;
 require_once ('../app/mc/Product.php');
 require_once('../app/mc/products/Cola.php');
 require_once('../app/mc/products/Coffee.php');
-require_once('../app/mc/products/FreeCoffee.php');
+require_once('../app/mc/products/Gift.php');
 
 class ProductTest extends TestCase
 {
 
     public function provideNames(){
         return array(
-            array(new Product("Hot", 0), "Hot"),
-            array(new Product("small", 2.4), "small" ),
             array(new Cola("testcola", 23), "Cola"),
-            array(new Coffee("cof", 4,8), "Coffee"),
-            array(new FreeCoffee("frecof", 2.0), "FreeCoffee")
+            array(new Coffee("cof", 4), "Coffee"),
+            array(new Gift("FreeCoffee"), "FreeCoffee")
         );
     }
     /**
@@ -35,11 +33,9 @@ class ProductTest extends TestCase
 
     public function provideCosts(){
         return array(
-            array(new Product("Hot", 0), 0.0),
-            array(new Product("small", 2.4), 2.4 ),
-            array(new Cola(), 59.0),
-            array(new Coffee(), 29.0),
-            array(new FreeCoffee(), 0.0)
+            array(new Cola(), 59),
+            array(new Coffee(), 29),
+            array(new Gift("gift"), 0)
         );
     }
     /**
